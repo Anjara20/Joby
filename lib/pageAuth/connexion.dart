@@ -14,6 +14,7 @@ class Connexion extends StatefulWidget {
 
 class _ConnexionState extends State<Connexion> {
   bool _isloading = false;
+  bool isAuth = false;
 
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passController = TextEditingController();
@@ -36,7 +37,31 @@ class _ConnexionState extends State<Connexion> {
         setState(() {
           _isloading = false;
         });
-        sharedPreferences.setString("token", jsonResponse['token']);
+        SharedPreferences localStorage = await SharedPreferences.getInstance();
+        var token = localStorage.getString('token');
+        _setHeaders() => {
+              'Content-type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': 'Bearer $token'
+            };
+        if (token != null) {
+          setState(() {
+            isAuth = true;
+          });
+        }
+        @override
+        Widget build(BuildContext context) {
+          Widget child;
+          if (isAuth) {
+            child = Accueil();
+          } else {
+            child = Connexion();
+          }
+          return Scaffold(
+            body: child,
+          );
+        }
+
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (BuildContext context) => Accueil()),
             (Route<dynamic> route) => false);
