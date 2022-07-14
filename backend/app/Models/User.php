@@ -22,10 +22,10 @@ class User extends Authenticatable
     protected $fillable = [
         'f_name',
         'l_name',
+        'roles_id',
         'email',
         'password',
         'phone',
-        'role'
     ];
 
     /**
@@ -53,5 +53,12 @@ class User extends Authenticatable
     public function createToken($user_id,$name, array $scopes = []){
         return Container::getInstance()->make(PersonalAccessTokenFactory::class)
            ->make($user_id, $name, $scopes);    
+    }
+
+    /**
+     * relation between role and user : one to many
+     */
+    public function role(){
+        return $this->belongsTo(Role::class,"roles_id");
     }
 }

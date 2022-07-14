@@ -12,11 +12,12 @@ use Illuminate\Support\Str;
 class ApiAuthController extends Controller
 {
     public function register(Request $request){
+        $this->authorize('request-users');
         $validator = Validator($request->all(), [
             'f_name' =>'required|string|max:255',
             'l_name' =>'required|string|max:255',
             'email'=>'required|string|email|max:255|unique:users',
-            'role'=>'required',
+            'roles_id'=>'required',
             'phone'=>['required','unique:users','regex:/(\+261(32|34|38|33))([0-9]{7})/'],
             'password'=>'required|string|min:6|confirmed',
         ]);
