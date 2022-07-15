@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class domain extends Model
+class Domain extends Model
 {
     use HasFactory;
 
@@ -15,7 +15,7 @@ class domain extends Model
         "name"
     ];
 
-    public function Jobs(){
-        return $this->hasOne(Job::class,"domains_id");
+    public function job(){
+        return $this->hasMany(Job::class, 'domain_id');
     }
 }

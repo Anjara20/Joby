@@ -20,9 +20,7 @@ class CreateFeaturedCompaniesTable extends Migration
             $table->boolean('is_active');
             $table->foreign('company_id')
                   ->references('id')
-                  ->on('companies')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
+                  ->on('companies');
             $table->timestamps();
         });
     }

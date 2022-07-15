@@ -23,6 +23,19 @@ class Company extends Model
         "youtube",
         "facebook",
         "twitter",
-        "logo"
+        "logo",
+        "city_id"
     ];
+
+    public function featured_company(){
+        return $this->hasOne(Featured_company::class,'company_id');
+    }
+
+    public function city(){
+        return $this->belongsTo(City::class,'city_id');
+    }
+
+    public function job(){
+        return $this->hasMany(Job::class, 'company_id');
+    }
 }

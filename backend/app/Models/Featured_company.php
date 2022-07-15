@@ -5,19 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Featured_job extends Model
+class Featured_company extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
     protected $fillable = [
-        'is_active',
-        'job_id'
+        'is_active'
     ];
 
-    public function job(){
-        return $this->belongsTo(Job::class,'job_id');
+    public function company(){
+        return $this->belongsTo(Company::class, 'company_id');
     }
-
 }

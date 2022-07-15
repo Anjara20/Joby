@@ -31,16 +31,17 @@ class CreateJobsTable extends Migration
                     ->unsigned();
             $table->integer('domain_id')
                     ->unsigned();
+            $table->integer('city_id')
+                    ->unsigned();
             $table->foreign('company_id')
                     ->references('id')
-                    ->on('companies')
-                    ->onDelete('cascade')
-                    ->onUpdate('cascade');
+                    ->on('companies');
+            $table->foreign('city_id')
+                   ->references('id')
+                   ->on('cities');
             $table->foreign('domain_id')
-                    ->references('id')
-                    ->on('domains')
-                    ->onDelete('cascade')
-                    ->onUpdate('cascade');
+                  ->references('id')
+                  ->on('domains');
             $table->timestamps();
         });
     }

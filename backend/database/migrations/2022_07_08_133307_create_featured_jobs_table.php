@@ -20,9 +20,7 @@ class CreateFeaturedJobsTable extends Migration
             $table->boolean('is_active');
             $table->foreign('job_id')
                     ->references('id')
-                    ->on('jobs')
-                    ->onDelete('cascade')
-                    ->onUpdate('cascade');
+                    ->on('jobs');
             $table->timestamps();
         });
     }

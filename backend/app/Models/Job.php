@@ -20,17 +20,25 @@ class Job extends Model
         "types",
         "number_person",
         "company_id",
-        "domain_id"
+        "domain_id",
+        "city_id"
     ];
 
-    public function domain(){
-        return $this->belongsTo(Domain::class,"domains_id");
+    public function featured_job(){
+        return $this->hasOne(Featured_job::class,'job_id');
+    }
+
+    public function city(){
+        return $this->belongsTo(City::class, 'city_id');
     }
 
     public function company(){
-        return $this->belongsTo(Company::class,"companies_id");
+        return $this->belongsTo(Company::class, 'company_id');
     }
 
+    public function domain(){
+        return $this->belongsTo(Domain::class, 'domain_id');
+    }
     
 
 }

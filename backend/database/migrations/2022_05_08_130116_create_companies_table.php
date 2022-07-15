@@ -19,7 +19,6 @@ class CreateCompaniesTable extends Migration
             $table->string('description')
                     ->nullable();
             $table->string('email');
-            $table->string('password');
             $table->string('phone',9);
             $table->string('location');
             $table->string('fax',30);
@@ -34,23 +33,12 @@ class CreateCompaniesTable extends Migration
                     ->nullable();
             $table->string('logo')
                     ->nullable();
-            $table->integer('country_id')
-                    ->unsigned()
-                    ->nullable();
             $table->integer('city_id')
                     ->unsigned()
-                    ->nullable();
-            $table->foreign('country_id')
-                    ->references('id')
-                    ->on('countries')
-                    ->onDelete('cascade')
-                    ->onUpdate('cascade')
                     ->nullable();
             $table->foreign('city_id')
                     ->references('id')
                     ->on('cities')
-                    ->onDelete('cascade')
-                    ->onUpdate('cascade')
                     ->nullable();
             $table->timestamps();
         });

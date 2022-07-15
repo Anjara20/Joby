@@ -56,9 +56,9 @@ class User extends Authenticatable
     }
 
     /**
-     * relation between role and user : one to many
+     * User has one role
      */
-    public function role(){
-        return $this->belongsTo(Role::class,"roles_id");
+    public function roles(){
+        return $this->belongsTo(Role::class,'roles_id');
     }
 }
