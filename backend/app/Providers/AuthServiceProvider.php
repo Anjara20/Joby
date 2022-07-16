@@ -31,21 +31,5 @@ class AuthServiceProvider extends ServiceProvider
         Passport::routes();
         Passport::personalAccessTokensExpireIn(Carbon::now()->addHours(24));
         Passport::refreshTokensExpireIn(Carbon::now()->addDays(30));
-
-        /**
-         * 
-         * Gate define Role for http request 
-         * for user role only
-        */
-        Gate::define('define-jobs', function(User $user){
-            if($user->role_id===2){
-                return true;
-            }
-        });
-        Gate::define('define-companies', function(User $user){
-            if($user->role_id===3){
-                return true;
-            }
-        });
     }
 }

@@ -12,12 +12,11 @@ use Illuminate\Support\Str;
 class ApiAuthController extends Controller
 {
     public function register(Request $request){
-        $this->authorize('request-users');
         $validator = Validator($request->all(), [
             'f_name' =>'required|string|max:255',
             'l_name' =>'required|string|max:255',
             'email'=>'required|string|email|max:255|unique:users',
-            'roles_id'=>'required',
+            'roles_id'=>'required|integer',
             'phone'=>['required','unique:users','regex:/(\+261(32|34|38|33))([0-9]{7})/'],
             'password'=>'required|string|min:6|confirmed',
         ]);
@@ -27,6 +26,7 @@ class ApiAuthController extends Controller
         $request['password']= Hash::make($request['password']);
         $request['remember_token'] = Str::random(10);
         $user = User::create($request->toArray());
+        $request['roles_id'] = $request['roles_id'] ? $request['roles_id'] : 2;
         $token = $user->createToken($user->id,'Laravel Password Grant')->accessToken;
         $response = ['token' => $token];
         return response($response, 200);
