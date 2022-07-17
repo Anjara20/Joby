@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/pageAuth/connexion.dart';
 import 'package:flutter_project/pageAuth/inscription.dart';
-
-import '../screens/liste_job.dart';
+import 'package:flutter_project/screens/Job_page.dart';
 
 class NavBar2 extends StatelessWidget {
   const NavBar2({Key? key}) : super(key: key);
@@ -12,8 +11,8 @@ class NavBar2 extends StatelessWidget {
     return Drawer(
       child: ListView(padding: EdgeInsets.zero, children: [
         UserAccountsDrawerHeader(
-          accountName: Text('Bli_Kely'),
-          accountEmail: Text('Bli@gmail.com'),
+          accountName: Text('Anthony'),
+          accountEmail: Text('tonyrak7@gmail.com'),
           currentAccountPicture: CircleAvatar(
             child: ClipOval(
               child: Image.asset(
@@ -51,7 +50,7 @@ class NavBar2 extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: ((context) => ListJob()),
+                  builder: ((context) => HomePage()),
                 ));
           },
         ),

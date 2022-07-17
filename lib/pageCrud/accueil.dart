@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/pageAuth/inscription.dart';
 import 'package:flutter_project/pageCrud/profil-2.dart';
-import 'package:flutter_project/pageCrud/sideBar.dart';
+import 'package:flutter_project/screens/Job_page.dart';
 import 'package:flutter_project/screens/cv_builder.dart';
-import 'package:flutter_project/screens/liste_job.dart';
+import 'package:flutter_project/screens/home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 
@@ -197,7 +196,7 @@ class _AccueilState extends State<Accueil> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: ((context) => ListJob()),
+                        builder: ((context) => HomePage()),
                       ));
                 },
                 color: Color.fromARGB(255, 50, 53, 255),
@@ -311,7 +310,7 @@ class _AccueilState extends State<Accueil> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: ((context) => ListJob()),
+                    builder: ((context) => HomePage()),
                   ));
             },
             color: Color.fromARGB(255, 50, 53, 255),
@@ -530,7 +529,7 @@ class _AccueilState extends State<Accueil> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: ((context) => ListJob()),
+                    builder: ((context) => HomePage()),
                   ));
             },
             color: Color.fromARGB(255, 50, 53, 255),

@@ -7,10 +7,10 @@ class LoginState {
 
   LoginState(this.isAuth)
 
-factory LoginState.initial() => LoginState(
-    isAuth: false,
+// factory LoginState.initial() => LoginState(
+//     isAuth: false,
     
-  )
+//   )
   
 }
 

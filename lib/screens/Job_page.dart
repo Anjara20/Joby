@@ -1,8 +1,7 @@
 import 'dart:convert';
-import 'package:flutter_project/screens/liste_job.dart';
+import 'package:flutter_project/screens/jobs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_project/screens/FadeAnimation.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -69,7 +68,7 @@ class _HomePageState extends State<HomePage> {
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(50),
                   borderSide: BorderSide.none),
-              hintText: "Search e.g Software Developer",
+              hintText: "Search",
               hintStyle: TextStyle(fontSize: 14),
             ),
           ),
@@ -80,8 +79,7 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.all(20),
             itemCount: jobList.length,
             itemBuilder: (context, index) {
-              return FadeAnimation(
-                  (1.0 + index) / 4, jobComponent(job: jobList[index]));
+              return jobComponent(job: jobList[index]);
             }),
       ),
     );

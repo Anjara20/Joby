@@ -1,21 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/screens/job.dart';
-
-class ListJob extends StatefulWidget {
-  const ListJob({Key? key}) : super(key: key);
-
-  @override
-  State<ListJob> createState() => _ListJobState();
-}
-
-class _ListJobState extends State<ListJob> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomePage(),
-    );
-  }
-}
 
 class Job {
   final String title;
