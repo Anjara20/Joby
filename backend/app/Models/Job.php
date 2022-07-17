@@ -28,6 +28,9 @@ class Job extends Model
         return $this->hasOne(Featured_job::class,'job_id');
     }
 
+    public function job_type(){
+        return $this->belongsTo(Job_type::class, 'job_type_id');
+    }
     public function city(){
         return $this->belongsTo(City::class, 'city_id');
     }

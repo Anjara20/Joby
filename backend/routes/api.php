@@ -4,6 +4,7 @@ use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ApiAuthController;
+use App\Http\Controllers\JobController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,12 @@ use App\Http\Controllers\Auth\ApiAuthController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+/**
+ * Concerning Auth
+ * 
+ */
+
 Route::middleware(['cors', 'json.response','auth:api'])->get('/user',function(Request $request) {
     return $request->user();
 });
@@ -28,3 +35,11 @@ Route::group(['middleware' => ['cors', 'json.response']], function (){
 Route::group(['middleware' => ['auth:api']],function () {
     Route::post('logout', [ApiAuthController::class, 'logout']);
 });
+
+/**
+ * Concerning Job
+ */
+Route::group(['middleware' => ['auth:api','cors','json.response']], function (){
+    Route::resource('job',JobController::class)->middleware(['api.admin', 'api.candidate']);
+});
+

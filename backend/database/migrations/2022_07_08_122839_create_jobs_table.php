@@ -25,6 +25,8 @@ class CreateJobsTable extends Migration
                     ->nullable();
             $table->enum('types',['hours','day','month','year'])
                     ->nullable();
+            $table->integer('job_type_id')
+                    ->unsigned();
             $table->integer('number_person')
                     ->unsigned();
             $table->integer('company_id')
@@ -42,6 +44,9 @@ class CreateJobsTable extends Migration
             $table->foreign('domain_id')
                   ->references('id')
                   ->on('domains');
+            $table->foreign('job_type_id')
+                  ->references('id')
+                  ->on('jobs_type');
             $table->timestamps();
         });
     }
