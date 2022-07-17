@@ -15,7 +15,8 @@ class JobController extends Controller
      */
     public function index()
     {
-        return response(['data' => Job::all()]);
+        $jobs = Job::all()->toArray();
+        return response(['data' => $jobs]);
     }
 
     /**
@@ -30,7 +31,7 @@ class JobController extends Controller
             "name" =>'required|string|max:255',
             "description"=>'string|nullable',
             "poste"=>'required|string|max:255',
-            "salary"=>['required', 'regex:[\d]+,[\d]{2}'],
+            "salary"=>['required', 'regex:/[\d]+,[\d]{2}/'],
             "currency"=>'required|string',
             "types"=>'required|string',
             "job_type_id"=>'required|numeric',

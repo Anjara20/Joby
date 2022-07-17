@@ -40,7 +40,7 @@ class CountrySeeder extends Seeder
             ["name"=>"Anosy"]
         ];
         foreach($countries as $c){
-            Country::create($c);
+            Country::factory()->create($c);
         }
     }
 }
