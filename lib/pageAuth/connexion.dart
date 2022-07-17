@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_project/main.dart';
 import 'package:flutter_project/pageAuth/inscription.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_project/pageCrud/accueil.dart';
+import 'package:flutter_project/network_utils/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Connexion extends StatefulWidget {
@@ -13,63 +12,32 @@ class Connexion extends StatefulWidget {
 }
 
 class _ConnexionState extends State<Connexion> {
-  bool _isloading = false;
   bool isAuth = false;
 
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passController = TextEditingController();
 
   signIn(String email, String pass) async {
-    String url = "http://10.0.2.2:8000/api/login";
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     Map body = {
       "email": email,
       "password": pass,
       "password_confirmation": pass
     };
-    var jsonResponse;
-    var res = await http.post(Uri.parse(url), body: body);
+    var res = await Network().authData(body, 'login');
     if (res.statusCode == 200) {
-      jsonResponse = json.decode(res.body);
       print("Response status : ${res.statusCode}");
       print("Response status : ${res.body}");
-      if (jsonResponse != null) {
-        setState(() {
-          _isloading = false;
-        });
+      if (res.body != null) {
         SharedPreferences localStorage = await SharedPreferences.getInstance();
-        var token = localStorage.getString('token');
-        _setHeaders() => {
-              'Content-type': 'application/json',
-              'Accept': 'application/json',
-              'Authorization': 'Bearer $token'
-            };
-        if (token != null) {
-          setState(() {
-            isAuth = true;
-          });
-        }
-        @override
-        Widget build(BuildContext context) {
-          Widget child;
-          if (isAuth) {
-            child = Accueil();
-          } else {
-            child = Connexion();
-          }
-          return Scaffold(
-            body: child,
-          );
-        }
-
+        localStorage.setString('token', res.body);
+        setState(() {
+          isAuth = true;
+        });
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (BuildContext context) => Accueil()),
             (Route<dynamic> route) => false);
       }
     } else {
-      setState(() {
-        _isloading = false;
-      });
       print("Response Status: ${res.body}");
     }
   }
@@ -91,11 +59,6 @@ class _ConnexionState extends State<Connexion> {
                   decoration: InputDecoration(
                     labelText: 'Entrer votre e-mail',
                   ),
-                  // if (val1=="Candidate@candidate.com" && val2=="Candidate@candidate.com") {
-
-                  // } else {
-
-                  // }
                 ),
                 SizedBox(height: 10.0),
                 TextFormField(
@@ -107,19 +70,22 @@ class _ConnexionState extends State<Connexion> {
                 ),
                 SizedBox(height: 25.0),
                 RaisedButton(
-                  // onPressed: () {},
-                  onPressed: _emailController.text == "" ||
-                          _passController.text == ""
-                      ? null
-                      : () {
-                          setState(() {
-                            _isloading = true;
-                          });
-                          signIn(_emailController.text, _passController.text);
-                        },
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: ((context) => Accueil()),
+                        ));
+                  },
+                  // onPressed: _emailController.text == "" ||
+                  //         _passController.text == ""
+                  //     ? null
+                  //     : () {
+                  //         signIn(_emailController.text, _passController.text);
+                  //       },
                   color: Color.fromARGB(255, 17, 142, 201),
                   child: Text(
-                    "S'Authentifier",
+                    "S'authentifier",
                     style: TextStyle(
                       color: Colors.white,
                     ),
@@ -140,9 +106,6 @@ class _ConnexionState extends State<Connexion> {
                   borderSide: BorderSide(width: 1.0, color: Colors.black),
                   child: Text(
                     "Pas encore de compte ?",
-                    // style: TextStyle(
-                    //   color: Colors.white,
-                    // ),
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),

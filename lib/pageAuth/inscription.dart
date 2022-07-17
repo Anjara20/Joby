@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/pageAuth/connexion.dart';
-
+import 'package:flutter_project/network_utils/api.dart';
 import 'package:flutter_project/pageCrud/accueil.dart';
 import 'package:flutter_project/pageCrud/profil.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
+import 'package:http/http.dart' as http;
 
 class Inscription extends StatefulWidget {
   @override
@@ -11,29 +12,10 @@ class Inscription extends StatefulWidget {
 }
 
 class _InscriptionState extends State<Inscription> {
-  String nom = '';
-  String motDePasse = '';
-  String email = '';
-  // var myInitialItem = 'Employé';
-  // List<String> myItems = [
-  //   'Employé',
-  //   'Client',
-  // ];
-  // List<dynamic> typePerson = [
-  //   {
-  //     "Id": 1,
-  //     "Label": "Employe",
-  //   },
-  //   {
-  //     "Id": 2,
-  //     "Label": "Client",
-  //   },
-  // ];
+  TextEditingController _nameController = new TextEditingController();
+  TextEditingController _emailController = new TextEditingController();
+  TextEditingController _passwordController = new TextEditingController();
 
-  // List<dynamic> stats = [];
-  // List<dynamic> statsMaster = [];
-  // String? PersonId;
-  // String? statId;
   final dropValue = ValueNotifier('');
   final dropOpcoes = ['Candidat', 'Recruteur'];
 
@@ -51,101 +33,36 @@ class _InscriptionState extends State<Inscription> {
               children: <Widget>[
                 Image.asset('assets/image-nogae.jpg',
                     height: 140.0, width: 140.0),
-
                 TextFormField(
+                  controller: _nameController,
                   decoration: InputDecoration(
                     labelText: 'Entrez votre nom',
-                    // border: OutlineInputBorder(
-                    //   borderSide: BorderSide(color: Colors.white, width: 5),
-                    // ),
-                    // labelStyle: TextStyle(
-                    //   color: Colors.white,
-                    // ),
-                    // counterStyle: TextStyle(
-                    //   color: Colors.white,
-                    // ),
                   ),
                 ),
                 SizedBox(height: 10.0),
                 TextFormField(
+                  controller: _emailController,
                   decoration: InputDecoration(
                     labelText: 'Adresse e-mail',
-                    // border: OutlineInputBorder(
-                    //   borderSide: BorderSide(color: Colors.white, width: 5),
-                    // ),
-                    // labelStyle: TextStyle(
-                    //   color: Colors.white,
-                    // ),
-                    // counterStyle: TextStyle(
-                    //   color: Colors.white,
-                    // ),
                   ),
                 ),
                 SizedBox(height: 10.0),
                 TextFormField(
+                  controller: _passwordController,
                   decoration: InputDecoration(
                     labelText: 'Mot de passe',
-                    // border: OutlineInputBorder(
-                    //   borderSide: BorderSide(color: Colors.white, width: 5),
-                    // ),
-                    // labelStyle: TextStyle(
-                    //   color: Colors.white,
-                    // ),
-                    // counterStyle: TextStyle(
-                    //   color: Colors.white,
-                    // ),
                   ),
                   obscureText: true,
                 ),
                 SizedBox(height: 10.0),
                 TextFormField(
+                  controller: _passwordController,
                   decoration: InputDecoration(
                     labelText: 'Confirmez votre mot de passe',
-                    // border: OutlineInputBorder(
-                    //   borderSide: BorderSide(color: Colors.white, width: 5),
-                    // ),
-                    // labelStyle: TextStyle(
-                    //   color: Colors.white,
-                    // ),
-                    // counterStyle: TextStyle(
-                    //   color: Colors.white,
-                    // ),
                   ),
                   obscureText: true,
                 ),
                 SizedBox(height: 10.0),
-                // TextFormField(
-                //   decoration: InputDecoration(
-                //     labelText: "S'enregistrer en tant que'",
-                //   ),
-                // ),
-
-                // Column(
-                //   children: [
-                //     FormHelper.dropDownWidgetWithLabel(
-                //       context,
-                //       "Connecter en tant que:",
-                //       "Selection d'un type d'authentification",
-                //       this.PersonId,
-                //       this.typePerson,
-                //       (onChangedVal) {
-                //         this.PersonId = onChangedVal;
-                //         print("Connectee en tant que: $onChangedVal");
-                //       },
-                //       (onValidateVal) {
-                //         if (onValidateVal == null) {
-                //           return "Veuillez entrer un type d'authentification";
-                //         }
-                //         return null;
-                //       },
-                //       borderColor: Theme.of(context).primaryColor,
-                //       borderFocusColor: Theme.of(context).primaryColor,
-                //       borderRadius: 10,
-                //       optionValue: "Id",
-                //       optionLabel: "Label",
-                //     ),
-                //   ],
-                // ),
                 SizedBox(height: 10.0),
                 ValueListenableBuilder(
                     valueListenable: dropValue,
@@ -168,7 +85,6 @@ class _InscriptionState extends State<Inscription> {
                                 .toList()),
                       );
                     }),
-
                 FlatButton(
                   onPressed: () {
                     if (dropValue == 'Candidat') {
@@ -221,4 +137,18 @@ class _InscriptionState extends State<Inscription> {
       ),
     );
   }
+}
+
+signup(name, email, password) async {
+  // print("Calling");
+  Map data = {
+    'name': name,
+    'email': email,
+    'password': password,
+    'passcord_confirmation': password
+  };
+  // print(data.toString());
+  // final response = await http.post(
+  //   Uri.parse(),
+  // );
 }
