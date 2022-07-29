@@ -20,7 +20,7 @@ class CreateJobsTable extends Migration
                     ->nullable();
             $table->string('poste');
             $table->decimal('salary',12,2)
-                    ->nullable();
+                   ->nullable();
             $table->enum('currency',['Ariary','Euro','dollar'])
                     ->nullable();
             $table->enum('types',['hours','day','month','year'])

@@ -4,6 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Domain;
+use App\Models\City;
+use App\Models\Job_type;
+use App\Models\Featured_job;
+use App\Models\Company;
 
 class Job extends Model
 {
@@ -18,6 +23,7 @@ class Job extends Model
         "salary",
         "currency",
         "types",
+        "job_type_id",
         "number_person",
         "company_id",
         "domain_id",

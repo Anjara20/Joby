@@ -19,7 +19,7 @@ class CreateCompaniesTable extends Migration
             $table->string('description')
                     ->nullable();
             $table->string('email');
-            $table->string('phone',9);
+            $table->string('phone');
             $table->string('location');
             $table->string('fax',30);
             $table->string('website');

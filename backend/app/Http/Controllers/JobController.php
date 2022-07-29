@@ -13,10 +13,13 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $jobs = Job::all()->toArray();
-        return response(['data' => $jobs]);
+        // $jobs = Job::all()->toArray();
+        // return response(['data' => $jobs]);
+        return [
+            "message" =>$request->user()->roles_id
+        ];
     }
 
     /**
@@ -31,13 +34,13 @@ class JobController extends Controller
             "name" =>'required|string|max:255',
             "description"=>'string|nullable',
             "poste"=>'required|string|max:255',
-            "salary"=>['required', 'regex:/[\d]+,[\d]{2}/'],
+            "salary"=>['required','nullable','regex:/[\d]+.[\d]{2}/'],
             "currency"=>'required|string',
             "types"=>'required|string',
             "job_type_id"=>'required|numeric',
             "company_id" => 'required|numeric',
-            "city_id" => 'required|numeric',
-            "domain_id"=> 'required|numeric'
+            "city_id" => 'nullable|numeric',
+            "domain_id"=> 'required'
         ]);
         if($validator->fails()){
             return response(['errors' => $validator->errors()->all(), 422]);

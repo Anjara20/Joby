@@ -40,6 +40,6 @@ Route::group(['middleware' => ['auth:api']],function () {
  * Concerning Job
  */
 Route::group(['middleware' => ['auth:api','cors','json.response']], function (){
-    Route::resource('job',JobController::class)->middleware(['api.admin', 'api.candidate']);
+    Route::resource('job',JobController::class)->middleware(['api.candidate']);
 });
 

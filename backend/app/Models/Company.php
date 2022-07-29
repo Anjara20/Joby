@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\City;
+use App\Models\Job;
+use App\Models\Featured_Company;
 
 class Company extends Model
 {
