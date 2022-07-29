@@ -3,23 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use App\Models\Job;
 
-class JobController extends Controller
+class JobApiController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        // $jobs = Job::all()->toArray();
-        // return response(['data' => $jobs]);
-        return [
-            "message" =>$request->user()->roles_id
-        ];
+        return Job::all();
     }
 
     /**
@@ -62,7 +57,7 @@ class JobController extends Controller
      */
     public function show($id)
     {
-        //
+        return Job::findOrFail($id);
     }
 
     /**
@@ -74,7 +69,17 @@ class JobController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $job = Job::findOrFail($id);
+        $job->update($request->all());
+        if($job->wasChanged()){
+            return response([
+                "message" => "Data updated successfully",
+                "data" => $job
+            ], 200);
+        } else {
+            return response(["error" => "something wrong please check"], 422);
+        }
+        return $job;
     }
 
     /**
@@ -85,6 +90,13 @@ class JobController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $job = Job::findOrFail($id);
+        if($job->Delete()){
+            return response([
+                "message" => "Data deleted successfully"
+            ], 200);
+        } else {
+            return response(["error" => "something wrong please check"], 422);
+        }
     }
 }

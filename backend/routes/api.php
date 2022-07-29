@@ -4,7 +4,7 @@ use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ApiAuthController;
-use App\Http\Controllers\JobController;
+use App\Http\Controllers\JobApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +40,6 @@ Route::group(['middleware' => ['auth:api']],function () {
  * Concerning Job
  */
 Route::group(['middleware' => ['auth:api','cors','json.response']], function (){
-    Route::resource('job',JobController::class)->middleware(['api.candidate']);
+    Route::apiResource('job',JobApiController::class)->middleware(['api.candidate']);
 });
 
