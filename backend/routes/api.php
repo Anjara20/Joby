@@ -4,6 +4,7 @@ use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ApiAuthController;
+use App\Http\Controllers\CompanyApiController;
 use App\Http\Controllers\JobApiController;
 
 /*
@@ -26,10 +27,14 @@ Route::middleware(['cors', 'json.response','auth:api'])->get('/user',function(Re
     return $request->user();
 });
 
+
+/**
+ * 
+ * Authentication 
+ * */
 Route::group(['middleware' => ['cors', 'json.response']], function (){
     Route::post('login', [ApiAuthController::class,'login'])->name('login.api');
     Route::post('register', [ApiAuthController::class, 'register'])->name('register.api');
-    // Route::post('logout',[ApiAuthController::class,'logout']);
 });
 
 Route::group(['middleware' => ['auth:api']],function () {
@@ -37,9 +42,11 @@ Route::group(['middleware' => ['auth:api']],function () {
 });
 
 /**
- * Concerning Job
+ * Api
  */
 Route::group(['middleware' => ['auth:api','cors','json.response']], function (){
-    Route::apiResource('job',JobApiController::class)->middleware(['api.candidate']);
+    Route::apiResource('job',JobApiController::class)->middleware(['api.candidate','api.admin']);
+    Route::apiResource('company',CompanyApiController::class)->middleware('api.admin');
 });
+
 

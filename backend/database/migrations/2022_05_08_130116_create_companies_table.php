@@ -21,8 +21,10 @@ class CreateCompaniesTable extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('location');
-            $table->string('fax',30);
-            $table->string('website');
+            $table->string('fax',30)
+                  ->nullable();
+            $table->string('website')
+                  ->nullable();
             $table->string('linkedin')
                     ->nullable();
             $table->string('youtube')
